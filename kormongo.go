@@ -70,10 +70,6 @@ func New(dbName string,dbDSN ...string) error {
 		}
 	}
 	if !onceDone {
-		runned := InitShell()
-		if runned {
-			os.Exit(0)
-		}
 		if useCache {
 			cachebus = ksbus.New()
 			cachebus.Subscribe(CACHE_TOPIC, func(data map[string]any, ch ksbus.Channel) {
@@ -84,6 +80,10 @@ func New(dbName string,dbDSN ...string) error {
 					"type": "clean",
 				})
 			})
+		}
+		runned := InitShell()
+		if runned {
+			os.Exit(0)
 		}
 		onceDone = true
 	}
@@ -100,10 +100,6 @@ func NewFromConnection(dbName string,dbConn *mongo.Database) error {
 		})
 	}
 	if !onceDone {
-		runned := InitShell()
-		if runned {
-			os.Exit(0)
-		}
 		if useCache {
 			cachebus = ksbus.New()
 			cachebus.Subscribe(CACHE_TOPIC, func(data map[string]any, ch ksbus.Channel) {
@@ -114,6 +110,10 @@ func NewFromConnection(dbName string,dbConn *mongo.Database) error {
 					"type": "clean",
 				})
 			})
+		}
+		runned := InitShell()
+		if runned {
+			os.Exit(0)
 		}
 		onceDone = true
 	}
